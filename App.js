@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
 
 export default function App() {
 
@@ -16,13 +16,15 @@ export default function App() {
   }
   console.log(addGoal);
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome To My React Native TODO App</Text>
-      <View style={styles.inputContainer}>
-        <TextInput placeholder="Enter your goal" style={styles.input} onChangeText={goalInputHandler} />
-        <Button title="Add your goal" onPress={addGoalHandler} />
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.title}>Welcome To My React Native TODO App</Text>
+        <View style={styles.inputContainer}>
+          <TextInput placeholder="Enter your goal" style={styles.input} onChangeText={goalInputHandler} />
+          <Button title="Add your goal" onPress={addGoalHandler} />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
