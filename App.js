@@ -20,8 +20,17 @@ export default function App() {
       <View style={styles.container}>
         <Text style={styles.title}>Welcome To My React Native TODO App</Text>
         <View style={styles.inputContainer}>
-          <TextInput placeholder="Enter your goal" style={styles.input} onChangeText={goalInputHandler} />
+          <TextInput
+            placeholder="Enter your goal"
+            style={styles.input}
+            onChangeText={goalInputHandler}
+          />
           <Button title="Add your goal" onPress={addGoalHandler} />
+        </View>
+        <View>
+          {addGoal.map((goal) => (
+            <Text style={styles.allGoal}>{goal}</Text>
+          ))}
         </View>
       </View>
     </ScrollView>
@@ -47,4 +56,13 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     width: "60%",
   },
+  allGoal: {
+    marginVertical: 5,
+    fontSize: 18,
+    color: 'black',    
+    marginHorizontal: 10,
+    backgroundColor: 'green',
+    padding: 10
+    
+  }
 });
