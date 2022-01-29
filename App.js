@@ -12,7 +12,13 @@ export default function App() {
   }
 
   const addGoalHandler = () => {
-    setAddGoal((currentGoal => [...currentGoal, {id: uuidv4(), goalValue: goalInput}]));    
+    setAddGoal(currentGoal => [...currentGoal, {id: uuidv4(), goalValue: goalInput}]);    
+  }
+
+  const onDeleteHandler = (id) => {    
+    setAddGoal(currentGoal => {
+      return currentGoal.filter(goal => goal.id !== id);
+    });
   }
   console.log(addGoal);
   return (
@@ -36,7 +42,7 @@ export default function App() {
               <Button
                 title="DELETE"
                 color="red"
-                onPress={() => console.log("pressed!")}
+                onPress={onDeleteHandler.bind(this, itemData.item.id)}
               />
             </View>
           )}
