@@ -39,6 +39,7 @@ export default function App() {
           renderItem={(itemData) => (
             <View style={styles.flatListContainer}>
               <Text style={styles.allGoal}>{itemData.item.goalValue}</Text>
+              <Text>{new Date().toLocaleString()}</Text>
               <Button
                 title="DELETE"
                 color="red"
