@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ScrollView } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
+import { v4 as uuidv4 } from "uuid";
 
 export default function App() {
 
@@ -12,11 +12,11 @@ export default function App() {
   }
 
   const addGoalHandler = () => {
-    setAddGoal((currentGoal => [...currentGoal, goalInput]));    
+    setAddGoal((currentGoal => [...currentGoal, {id: uuidv4(), goalValue: goalInput}]));    
   }
   console.log(addGoal);
   return (
-    <ScrollView>
+    <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.title}>Welcome To My React Native TODO App</Text>
         <View style={styles.inputContainer}>
@@ -27,13 +27,22 @@ export default function App() {
           />
           <Button title="Add your goal" onPress={addGoalHandler} />
         </View>
-        <View>
-          {addGoal.map((goal) => (
-            <Text style={styles.allGoal}>{goal}</Text>
-          ))}
-        </View>
+        <FlatList
+          data={addGoal}
+          keyExtractor={(item) => item.id}
+          renderItem={(itemData) => (
+            <View style={styles.flatListContainer}>
+              <Text style={styles.allGoal}>{itemData.item.goalValue}</Text>
+              <Button
+                title="DELETE"
+                color="red"
+                onPress={() => console.log("pressed!")}
+              />
+            </View>
+          )}
+        />
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -57,12 +66,17 @@ const styles = StyleSheet.create({
     width: "60%",
   },
   allGoal: {
-    marginVertical: 5,
-    fontSize: 18,
-    color: 'black',    
-    marginHorizontal: 10,
-    backgroundColor: 'green',
-    padding: 10
+    color: "black",
+    padding: 8,
+    margin: 5,
+    backgroundColor: "green",
     
-  }
+  },
+  flatListContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: 5,
+  },
 });
